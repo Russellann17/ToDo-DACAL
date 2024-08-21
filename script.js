@@ -25,10 +25,27 @@ function addTask() {
 }
 
 function deleteTask(id) {
-    let tasks = getTasks();
-    tasks = tasks.filter(task => task.id !== id);
-    saveTasks(tasks);
-    renderTasks();
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You want to delete this task?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirm'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let tasks = getTasks();
+            tasks = tasks.filter(task => task.id !== id);
+            saveTasks(tasks);
+            renderTasks();
+            Swal.fire(
+                'Deleted!',
+                'Your task has been deleted.',
+                'success'
+            );
+        }
+    });
 }
 
 function editTask(id) {
@@ -69,18 +86,21 @@ function renderTasks() {
     
     const tasks = getTasks();
     
+    // Sort tasks: uncompleted tasks first, then completed tasks
+    tasks.sort((a, b) => a.completed - b.completed);
+    
     tasks.forEach(task => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
+            <td>
+                <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleComplete(${task.id})">
+            </td>
             <td style="text-decoration: ${task.completed ? 'line-through' : 'none'};">
                 ${task.description}
             </td>
             <td>
-                <button class="edit" onclick="editTask(${task.id})">Edit</button>
-                <button class="delete" onclick="deleteTask(${task.id})">Delete</button>
-                <button class="complete" onclick="toggleComplete(${task.id})">
-                    ${task.completed ? 'Undo' : 'Complete'}
-                </button>
+                <button class="btn btn-info btn-sm edit" onclick="editTask(${task.id})">Edit</button>
+                <button class="btn btn-danger btn-sm delete" onclick="deleteTask(${task.id})">Delete</button>
             </td>
         `;
         taskList.appendChild(tr);

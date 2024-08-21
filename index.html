@@ -4,19 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
+    <!-- Bootstrap CSS via CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- SweetAlert2 CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>To-Do List</h1>
-        <div id="task-form">
-            <input type="text" id="task-description" placeholder="Enter a new task">
-            <button class="add-task" onclick="addTask()">Add Task</button>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">To-Do List</h1>
+        <div id="task-form" class="mb-4">
+            <div class="input-group">
+                <input type="text" id="task-description" class="form-control" placeholder="Enter a new task">
+                <div class="input-group-append">
+                    <button class="btn btn-dark" onclick="addTask()">Add Task</button>
+                </div>
+            </div>
         </div>
         <div id="task-container">
-            <table id="task-table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th>Complete</th>
                         <th>Description</th>
                         <th>Actions</th>
                     </tr>
@@ -27,15 +37,33 @@
     </div>
 
     <!-- Edit Task Modal -->
-    <div id="edit-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal()">&times;</span>
-            <h2>Edit Task</h2>
-            <input type="text" id="edit-description" placeholder="Edit task description">
-            <button class="save" onclick="saveTask()">Save Changes</button>
+    <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="edit-description" class="form-control" placeholder="Edit task description">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="saveTask()">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Bootstrap JS and dependencies via CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- SweetAlert2 JS via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <!-- Custom JS -->
     <script src="script.js"></script>
 </body>
 </html>
