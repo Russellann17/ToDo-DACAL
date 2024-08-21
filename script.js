@@ -91,6 +91,10 @@ function renderTasks() {
     
     tasks.forEach(task => {
         const tr = document.createElement('tr');
+        
+        // Determine if the button should be disabled
+        const updateButtonDisabled = task.completed ? 'disabled' : '';
+        
         tr.innerHTML = `
             <td>
                 <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleComplete(${task.id})">
@@ -99,10 +103,11 @@ function renderTasks() {
                 ${task.description}
             </td>
             <td>
-                <button class="btn btn-info btn-sm edit" onclick="editTask(${task.id})">Update</button>
+                <button class="btn btn-info btn-sm edit" ${updateButtonDisabled} onclick="editTask(${task.id})">Update</button>
                 <button class="btn btn-danger btn-sm delete" onclick="deleteTask(${task.id})">Delete</button>
             </td>
         `;
         taskList.appendChild(tr);
     });
 }
+
